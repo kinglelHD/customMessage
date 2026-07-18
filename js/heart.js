@@ -1,14 +1,13 @@
-const heart_image = load_image('heart.svg')
+let heart_image = null
+const heart_image_loader = load_image('heart.svg')
 
-function start_heart_spawning() {
-    if (heart_image.complete && heart_image.naturalWidth > 0) {
+async function start_heart_spawning() {
+    try {
+        heart_image = await heart_image_loader
         spawn_heart()
-        return
+    } catch (error) {
+        console.error('failed to load heart image', error)
     }
-
-    heart_image.addEventListener('load', () => {
-        spawn_heart()
-    }, { once: true })
 }
 
 class Heart extends Particles {

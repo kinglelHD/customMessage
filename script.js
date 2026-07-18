@@ -18,8 +18,6 @@ function load_js(filename) {
     return new Promise((resolve, reject) => {
         let script = document.createElement('script')
         script.src = `/js/${filename}.js`
-        script.async = false
-        script.defer = false
         script.type = 'text/javascript'
         script.onload = () => resolve(script)
         script.onerror = () => reject(new Error(`Failed to load JS: ${filename}`))
@@ -27,9 +25,12 @@ function load_js(filename) {
     })
 }
 function load_image(filename_with_extension) {
-    const image = new Image()
-    image.src = `/assets/${filename_with_extension}`
-    return image
+    return new Promise((resolve, reject) => {
+        let image = new Image()
+        image.src = `/assets/${filename_with_extension}`
+        image.onload = () => resolve(image)
+        image.onerror = () => reject(new Error(`Failed to load Image: ${filename_with_extension}`))
+    })
 }
 
 const urlParams = new URLSearchParams(window.location.search);
