@@ -5,17 +5,26 @@ const message_h1 = document.getElementById('message_h1')
 const name_p = document.getElementById('name_p')
 
 function load_css(filename) {
-    let link = document.createElement('link')
-    link.href = `/css/${filename}.css`
-    link.rel = 'stylesheet'
-    head.appendChild(link)
+    return new Promise((resolve, reject) => {
+        let link = document.createElement('link')
+        link.href = `/css/${filename}.css`
+        link.rel = 'stylesheet'
+        link.onload = () => resolve(link)
+        link.onerror = () => reject(new Error(`Failed to load CSS: ${filename}`))
+        head.appendChild(link)
+    })
 }
 function load_js(filename) {
-    let script = document.createElement('script')
-    script.src = `/js/${filename}.js`
-    script.defer = true
-    script.type = 'text/javascript'
-    head.appendChild(script)
+    return new Promise((resolve, reject) => {
+        let script = document.createElement('script')
+        script.src = `/js/${filename}.js`
+        script.async = false
+        script.defer = false
+        script.type = 'text/javascript'
+        script.onload = () => resolve(script)
+        script.onerror = () => reject(new Error(`Failed to load JS: ${filename}`))
+        head.appendChild(script)
+    })
 }
 function load_image(filename_with_extension) {
     const image = new Image()
@@ -42,15 +51,19 @@ if (urlParams.size > 0) {
     message_h1.innerText = message
     name_p.innerText = name
 
-    if (background) {
-        load_css(background)
-        load_js(background)
-    }
-    if (special) {
-        load_js('particles')
-        load_js(special)
-    }
+    ;(async () => {
+        if (background) {
+            await load_css(background)
+            await load_js(background)
+        }
 
+        if (special) {
+            await load_js('particles')
+            await load_js(special)
+        }
+    })().catch((error) => {
+        console.error(error)
+    })
 
 } else {
     generator.style.display = 'block'

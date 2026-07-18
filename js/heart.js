@@ -1,5 +1,16 @@
 const heart_image = load_image('heart.svg')
 
+function start_heart_spawning() {
+    if (heart_image.complete && heart_image.naturalWidth > 0) {
+        spawn_heart()
+        return
+    }
+
+    heart_image.addEventListener('load', () => {
+        spawn_heart()
+    }, { once: true })
+}
+
 class Heart extends Particles {
     constructor() {
 
@@ -48,8 +59,4 @@ document.addEventListener('visibilitychange', () => {
     }
 })
 
-heart_image.onload = spawn_heart
-
-heart_image.onerror = () => {
-    console.error('failed to load heart image')
-}
+start_heart_spawning()
