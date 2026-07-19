@@ -19,7 +19,8 @@ class Heart extends Particles {
 
         super(canvas, ctx, heart_image, x, y) /* canvas, ctx, img, x, y */
 
-        this.speedX = Math.random() * 1 + 1
+        const random_abs_speedX = Math.random() * 1 + 1
+        this.speedX = Math.random() > .5 ? -random_abs_speedX : random_abs_speedX
         this.speedY = Math.random() * 1 + 1
         this.width = size
         this.height = size
