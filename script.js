@@ -3,6 +3,7 @@ const generator = document.querySelector('.generator')
 const display = document.querySelector('.display')
 const message_h1 = document.getElementById('message_h1')
 const name_p = document.getElementById('name_p')
+const body = document.querySelector('body')
 
 function load_css(filename) {
     return new Promise((resolve, reject) => {
@@ -47,7 +48,7 @@ if (urlParams.size > 0) {
     }
 
     generator.style.display = 'none'
-    display.style.display = 'block'
+    if (message || name) display.style.display = 'block'
 
     message_h1.innerText = message
     name_p.innerText = name

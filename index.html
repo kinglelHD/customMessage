@@ -52,7 +52,7 @@
                 padding: .5em 1em;
                 font-size: 1rem;
             }
-
+            
             button {
                 background-color: cadetblue;
                 border: none;
@@ -97,7 +97,7 @@
         <p>Nachdem du auf "generieren" gedrückt hast, wird dir die fertige Nachricht angezeigt. Du kannst dann den Link aus der Adresszeile kopieren um sie zu teilen. (Aktuell funktionieren noch nicht alle Einstellungen wip)</p>
         <form id="generator_form" action="">
             <label for="message">Nachricht: </label>
-            <input required placeholder="༼ つ ◕_◕ ༽つ" name="message" id="message" type="text">
+            <input placeholder="༼ つ ◕_◕ ༽つ" name="message" id="message" type="text">
 
             <label for="name">Name: </label>
             <input placeholder="Max Mustermann" name="name" id="message" type="text">
@@ -105,6 +105,8 @@
             <label for="background">Hintergrund: </label>
             <select name="background" id="background">
                 <option value="">keinen</option>
+                <option value="matrix">Matrix</option>
+                <option value="basketball">Basketball</option>
                 <option value="flower">Blumen</option>
                 <option value="party">Party</option>
                 <option value="spring">Frühling</option>

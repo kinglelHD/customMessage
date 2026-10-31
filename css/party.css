@@ -1,8 +1,93 @@
+:root {
+    --black: black;
+    --red: rgba(255,0,0,1);
+    --orange: rgba(255,154,0,1);
+    --yellow: rgba(208,222,33,1);
+    --green: rgba(79,220,74,1);
+    --aqua-1: rgba(63,218,216,1);
+    --aqua-2: rgba(47,201,226,1);
+    --blue: rgba(28,127,238,1);
+    --purble: rgba(95,21,242,1);
+    --pink-1: rgba(186,12,248,1);
+    --pink-2: rgba(251,7,217,1);
+}
+
 body {
-    background-color: rgb(69, 69, 69);
+    background-color: black;
     color: white;
 }
 
 html {
     color-scheme: dark;
+}
+
+.display {
+    background-color: rgb(69, 69, 69);
+}
+
+#message_h1 {
+    background-size: 200%;
+    background-image:
+     linear-gradient(45deg, var(--red) 0%, var(--orange) 10%, var(--yellow) 20%, var(--green) 30%, var(--aqua-1) 40%, var(--aqua-2) 50%, var(--blue) 60%, var(--purble) 70%, var(--pink-1) 80%, var(--pink-2) 90%, var(--red) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: rainbowtext infinite alternate 5s;
+    
+    -webkit-text-stroke: 4px var(--black);
+    text-stroke: 4px var(--black);
+}
+
+@keyframes rainbowtext {
+    0% {
+        background-position: left;
+    }
+    100% {
+        background-position: right;
+    }
+}
+
+#name_p {
+    color: var(--red);
+    animation: rainbowtext_2 infinite 20s;
+
+    font-weight: bolder;
+    -webkit-text-stroke: 4px var(--black);
+    text-stroke: 4px var(--black);
+}
+
+@keyframes rainbowtext_2 {
+    0% {
+        color: var(--red);
+    }
+    10% {
+        color: var(--orange);
+    }
+    20% {
+        color: var(--yellow);
+    }
+    30% {
+        color: var(--green);
+    }
+    40% {
+        color: var(--aqua-1);
+    }
+    50% {
+        color: var(--aqua-2);
+    }
+    60% {
+        color: var(--blue);
+    }
+    70% {
+        color: var(--purble);
+    }
+    80% {
+        color: var(--pink-1);
+    }
+    90% {
+        color: var(--pink-2);
+    }
+    100% {
+        color: var(--red);
+    }
 }

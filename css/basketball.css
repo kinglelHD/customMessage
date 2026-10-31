@@ -1,0 +1,14 @@
+:root {
+    --dark-blue: #0e181f;
+    --light-blue: #8cc8fa;
+    --orange: #ed7800;
+}
+
+body {
+    background-color: var(--light-blue);
+    color: var(--orange);
+}
+
+.display {
+    display: none !important;
+}

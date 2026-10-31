@@ -1,0 +1,29 @@
+:root {
+    --green-black-bg: rgba(0, 32, 0, .5);
+    --matrix-green: #0aff0a;
+}
+
+body {
+    background-color: black;
+}
+
+.display {
+    color: var(--matrix-green);
+    background-color: var(--green-black-bg);
+    padding: 1rem;
+    outline: .75em solid var(--matrix-green);
+}
+
+#message_h1 {
+    text-shadow: .5rem .5rem black;
+}
+
+#name_p {
+    background-color: var(--matrix-green);
+    color: black;
+    margin-inline: auto;
+    width: fit-content;
+    padding: 0 1em;
+    mix-blend-mode: color-dodge;
+    font-weight: bolder;
+}
