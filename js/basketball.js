@@ -76,14 +76,14 @@ class Ball {
         this.y = window.innerHeight - this.height
         this.vx = 0
         this.vy = 0
-        this.ax = 0
+        /* this.ax = 0 */
         this.ay = 0
         this.drag = .99
-        this.friction = .25
+        this.ground_friction = .5
         this.gravity = 32
         this.throwing = false
-        this.pos1 = {x: undefined, y: undefined}
-        this.pos2 = {x: undefined, y: undefined}
+        /* this.pos1 = {x: undefined, y: undefined}
+        this.pos2 = {x: undefined, y: undefined} */
 
         window.addEventListener("mousedown", (e) => {
             if (checkCollision(e.clientX, e.clientY, 10, this.x + this.width * .5, this.y + this.height * .5, this.radius)) {
@@ -95,20 +95,25 @@ class Ball {
         
         window.addEventListener("mousemove", (e) => {
             if (this.throwing) {
-                this.pos1.x = e.clientX;
-                this.pos1.y = e.clientY;
+                /* this.pos1.x = e.clientX;
+                this.pos1.y = e.clientY; */
                 this.targetX = e.clientX - this.radius
                 this.targetY = e.clientY - this.radius
             }
         });
 
         window.addEventListener("mouseup", (e) => {
-            this.pos2.x = e.clientX
-            this.pos2.y = e.clientY
+            /* this.pos2.x = e.clientX;
+            this.pos2.y = e.clientY; */
             if (this.throwing) {
-                this.ax = (this.pos2.x - this.pos1.x) * .25
-                this.ay = (this.pos2.y - this.pos1.y) * .25
                 this.throwing = false;
+                // Ball isn't moving -> just let it fall with gravity
+                /* if (this.vy == 0 && this.vx == 0) {
+                    return
+                } */
+                /* this.ax = (this.pos2.x - this.pos1.x) * .25
+                this.ay = (this.pos2.y - this.pos1.y) * .25 */
+
             }
         });
     }
@@ -118,9 +123,9 @@ class Ball {
             this.vy = (this.targetY - this.y) * .25
         }
         if (this.vy < this.gravity && this.y < basketball_canvas.height - this.height - .25) {
-            this.vy += .69
+            this.ay = 1 // gravity
         }
-        this.vx += this.ax
+        /* this.vx += this.ax */
         this.vy += this.ay
         this.x += this.vx
         this.y += this.vy
@@ -130,38 +135,38 @@ class Ball {
         this.ay *= .5
 
         if (Math.abs(this.ay) < .25) this.ay = 0
-        if (Math.abs(this.ax) < .25) this.ax = 0
+        /* if (Math.abs(this.ax) < .25) this.ax = 0 */
         if (Math.abs(this.vy) < .25) this.vy = 0
         if (Math.abs(this.vx) < .25) this.vx = 0
 
-        if (this.x < 0) {
+        if (this.x < 0) { // left wall
             this.vx *= -.8
             this.x = 0
             if (!this.throwing) playSFX('bounce')
         }
-        if (this.x + this.width > basketball_canvas.width) {
+        if (this.x + this.width > basketball_canvas.width) { // right wall
             this.vx *= -.8
             this.x = basketball_canvas.width - this.width
             if (!this.throwing) playSFX('bounce')
         }
-        if (this.y < 0) {
+        if (this.y < 0) { // top wall
             this.vy *= -.8
             this.y = 0
             if (!this.throwing) playSFX('bounce')
         }
-        if (this.y + this.height > basketball_canvas.height) {
-            if (this.vy >= 2.5) {
+        if (this.y + this.height > basketball_canvas.height) { // ground
+            if (Math.abs(this.vy) >= 2.5) {
                 this.vy *= -.8
             } else {
                 this.vy = 0
                 this.ay = 0
             }
-            this.vx *= this.friction
+            this.vx *= this.ground_friction
             this.y = basketball_canvas.height - this.height
             if (!this.throwing) playSFX('bounce')
         }
 
-        this.rotation += this.vx / this.radius
+        if (!this.throwing) this.rotation += this.vx / this.radius
     }
     draw() {
         basketball_ctx.save()
