@@ -22,6 +22,7 @@ const basket_image_loader = load_image('basketball/basket.png')
 const basket_net_image_loader = load_image('basketball/basket_net.png')
 const ball_image_loader = load_image('basketball/ball.png')
 const basket_reference_scale = .3
+const basket_horizontal_padding = 32
 
 async function start_basketball_minigame() {
     try {
@@ -47,11 +48,11 @@ class Basket {
     constructor() {
         const img_width = 1679
         const img_height = 1588
-        this.scale = Math.min(window.innerWidth / img_width, window.innerHeight / img_height, basket_reference_scale)
+        this.scale = Math.min(Math.max(0, window.innerWidth - basket_horizontal_padding * 2) / img_width, window.innerHeight / img_height, basket_reference_scale)
         this.width = this.scale * img_width
         this.height = this.scale * img_height
         window.addEventListener('resize', () => { 
-            this.scale = Math.min(window.innerWidth / img_width, window.innerHeight / img_height, basket_reference_scale)
+            this.scale = Math.min(Math.max(0, window.innerWidth - basket_horizontal_padding * 2) / img_width, window.innerHeight / img_height, basket_reference_scale)
             this.width = this.scale * img_width
             this.height = this.scale * img_height
             this.x = window.innerWidth * .5 - this.width * .5
@@ -94,27 +95,27 @@ class Ball {
         this.pos2 = {x: undefined, y: undefined} */
 
         this.mousedown_f = (e) => {
-            const X = e.clientX || e.touches[0].clientX
-            const Y = e.clientY || e.touches[0].clientY
-            if (checkCollision(X, Y, 10, this.x + this.width * .5, this.y + this.height * .5, this.radius)) {
-                this.targetX = X - this.radius
-                this.targetY = Y - this.radius
+            const point = e.touches ? e.touches[0] : e
+            if (checkCollision(point.clientX, point.clientY, 10, this.x + this.width * .5, this.y + this.height * .5, this.radius)) {
+                if (e.type === 'touchstart' && e.cancelable) e.preventDefault()
+                this.targetX = point.clientX - this.radius
+                this.targetY = point.clientY - this.radius
                 this.throwing = true;
             }
         }
         window.addEventListener("mousedown", this.mousedown_f)
-        window.addEventListener("touchstart", this.mousedown_f)
+        window.addEventListener("touchstart", this.mousedown_f, { passive: false })
         
         this.mousemove_f = (e) => {
-            const X = e.clientX || e.touches[0].clientX
-            const Y = e.clientY || e.touches[0].clientY
+            const point = e.touches ? e.touches[0] : e
             if (this.throwing) {
-                this.targetX = X - this.radius
-                this.targetY = Y - this.radius
+                if (e.type === 'touchmove' && e.cancelable) e.preventDefault()
+                this.targetX = point.clientX - this.radius
+                this.targetY = point.clientY - this.radius
             }
         }
         window.addEventListener("mousemove", this.mousemove_f)
-        window.addEventListener("touchmove", this.mousemove_f)
+        window.addEventListener("touchmove", this.mousemove_f, { passive: false })
 
         this.mouseup_f = () => {
             if (this.throwing) {
