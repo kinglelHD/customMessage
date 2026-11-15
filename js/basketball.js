@@ -123,6 +123,7 @@ class Ball {
         } 
         window.addEventListener("mouseup", this.mouseup_f)
         window.addEventListener("touchend", this.mouseup_f)
+        window.addEventListener("touchcancel", this.mouseup_f)
     }
     update() {
         if (this.throwing && this.targetX && this.targetY) {
