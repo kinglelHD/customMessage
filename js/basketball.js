@@ -26,6 +26,9 @@ const basket_horizontal_padding = 32
 
 async function start_basketball_minigame() {
     try {
+        load_js('particles')
+        load_js('konfetti')
+
         basket_image = await basket_image_loader
         basket_net_image = await basket_net_image_loader
         ball_image = await ball_image_loader
@@ -158,6 +161,7 @@ class Ball {
             if (crossingX > leftEdge && crossingX < rightEdge && !this.throwing) {
                 playSFX('net')
                 // Count or otherwise handle the basket here.
+                konfetti_corners()
             }
         }
         this.resolveNetCollisions(previousCenterX, previousCenterY)
