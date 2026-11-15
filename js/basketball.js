@@ -300,7 +300,7 @@ function basketball_minigame() {
 
     /* MAGIC NUMBERS */
     const net_scale = basket.scale / basket_reference_scale
-    basketball_ctx.drawImage(basket_net_image, basket.x + 9 * net_scale, basket.y + 121 * net_scale, basket.width, basket.height)
+    basketball_ctx.drawImage(basket_net_image, basket.x * net_scale, basket.y * net_scale, basket.width, basket.height)
     requestAnimationFrame(basketball_minigame)
 }
 
