@@ -4,6 +4,13 @@
     --orange: #ed7800;
 }
 
+html {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
 body {
     background-color: var(--light-blue);
     color: var(--orange);
