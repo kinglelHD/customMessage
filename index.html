@@ -67,6 +67,50 @@
                 }
             }
         }
+        
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        label:has(+input[type="checkbox"]) {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+            position: relative;
+            width: fit-content;
+            margin-bottom: 2rem;
+        }
+
+        label:has(+input[type="checkbox"])::after {
+            content: '';
+            width: 2em;
+            height: 1em;
+            border-radius: 1em;
+            background-color: white;
+            outline: 1px solid black;
+        }
+
+        label:has(+input[type="checkbox"])::before {
+            content: '\2715';
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            right: 1em;
+            width: 1.6em;
+            height: 1.6em;
+            background-color: lightslategray;
+            border-radius: 50%;
+            transition: 150ms ease-in-out;
+            outline: 1px solid black;
+        }
+
+        label:has(+input[type="checkbox"]:checked)::before {
+            content: '\2713';
+            transform: translateX(1.6em);
+            background-color: cadetblue;
+        }
+
         #generator_form {
             display: flex;
             flex-direction: column;
@@ -101,6 +145,9 @@
 
             <label for="name">Name: </label>
             <input placeholder="Max Mustermann" name="name" id="message" type="text">
+
+            <label for="popup">Nachricht als Popup anzeigen:</label>
+            <input type="checkbox" id="popup" name="popup">
 
             <label for="background">Hintergrund: </label>
             <select name="background" id="background">
