@@ -93,37 +93,36 @@ class Ball {
         /* this.pos1 = {x: undefined, y: undefined}
         this.pos2 = {x: undefined, y: undefined} */
 
-        window.addEventListener("mousedown", (e) => {
-            if (checkCollision(e.clientX, e.clientY, 10, this.x + this.width * .5, this.y + this.height * .5, this.radius)) {
-                this.targetX = e.clientX - this.radius
-                this.targetY = e.clientY - this.radius
+        this.mousedown_f = (e) => {
+            const X = e.clientX || e.touches[0].clientX
+            const Y = e.clientY || e.touches[0].clientY
+            if (checkCollision(X, Y, 10, this.x + this.width * .5, this.y + this.height * .5, this.radius)) {
+                this.targetX = X - this.radius
+                this.targetY = Y - this.radius
                 this.throwing = true;
             }
-        });
+        }
+        window.addEventListener("mousedown", this.mousedown_f)
+        window.addEventListener("touchstart", this.mousedown_f)
         
-        window.addEventListener("mousemove", (e) => {
+        this.mousemove_f = (e) => {
+            const X = e.clientX || e.touches[0].clientX
+            const Y = e.clientY || e.touches[0].clientY
             if (this.throwing) {
-                /* this.pos1.x = e.clientX;
-                this.pos1.y = e.clientY; */
-                this.targetX = e.clientX - this.radius
-                this.targetY = e.clientY - this.radius
+                this.targetX = X - this.radius
+                this.targetY = Y - this.radius
             }
-        });
+        }
+        window.addEventListener("mousemove", this.mousemove_f)
+        window.addEventListener("touchmove", this.mousemove_f)
 
-        window.addEventListener("mouseup", (e) => {
-            /* this.pos2.x = e.clientX;
-            this.pos2.y = e.clientY; */
+        this.mouseup_f = () => {
             if (this.throwing) {
                 this.throwing = false;
-                // Ball isn't moving -> just let it fall with gravity
-                /* if (this.vy == 0 && this.vx == 0) {
-                    return
-                } */
-                /* this.ax = (this.pos2.x - this.pos1.x) * .25
-                this.ay = (this.pos2.y - this.pos1.y) * .25 */
-
             }
-        });
+        } 
+        window.addEventListener("mouseup", this.mouseup_f)
+        window.addEventListener("touchend", this.mouseup_f)
     }
     update() {
         if (this.throwing && this.targetX && this.targetY) {
@@ -171,23 +170,23 @@ class Ball {
         if (Math.abs(this.vx) < .25) this.vx = 0
 
         if (this.x < 0) { // left wall
-            this.vx *= -.8
+            this.vx *= -.85
             this.x = 0
             if (!this.throwing) playSFX('bounce')
         }
         if (this.x + this.width > basketball_canvas.width) { // right wall
-            this.vx *= -.8
+            this.vx *= -.85
             this.x = basketball_canvas.width - this.width
             if (!this.throwing) playSFX('bounce')
         }
         if (this.y < 0) { // top wall
-            this.vy *= -.8
+            this.vy *= -.85
             this.y = 0
             if (!this.throwing) playSFX('bounce')
         }
         if (this.y + this.height > basketball_canvas.height) { // ground
             if (Math.abs(this.vy) >= 2.5) {
-                this.vy *= -.8
+                this.vy *= -.85
             } else {
                 this.vy = 0
                 this.ay = 0
@@ -268,8 +267,8 @@ class Ball {
             }
             if (velocityAlongNormal < 0) {
                 if (!this.throwing && velocityAlongNormal <= -2.5) {
-                    this.vx -= 1.8 * velocityAlongNormal * normalX
-                    this.vy -= 1.8 * velocityAlongNormal * normalY
+                    this.vx -= 1.85 * velocityAlongNormal * normalX
+                    this.vy -= 1.85 * velocityAlongNormal * normalY
                     playSFX('bounce')
                 } else {
                     this.vx -= velocityAlongNormal * normalX
