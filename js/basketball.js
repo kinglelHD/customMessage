@@ -299,8 +299,7 @@ function basketball_minigame() {
     ball.draw()
 
     /* MAGIC NUMBERS */
-    const net_scale = basket.scale / basket_reference_scale
-    basketball_ctx.drawImage(basket_net_image, basket.x * net_scale, basket.y * net_scale, basket.width, basket.height)
+    basketball_ctx.drawImage(basket_net_image, basket.x, basket.y, basket.width, basket.height)
     requestAnimationFrame(basketball_minigame)
 }
 
