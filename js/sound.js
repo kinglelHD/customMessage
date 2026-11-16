@@ -2,27 +2,6 @@ let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 let gainNode;
 let audioSource;
 
-// SFX file paths
-/* const SFX_FILES = {
-    typing: "sounds/typing.wav",
-    click: "sounds/button-click.wav",
-    bleep: "sounds/bleep.wav"
-}; */
-
-/* function playTypingSound() {
-    if (!SFX.typing) return;
-
-    const src = audioCtx.createBufferSource();
-    src.buffer = SFX.typing;
-
-    const randomPitch = 0.95 + Math.random() * 0.1;
-    src.playbackRate.value = randomPitch;
-
-    src.connect(audioCtx.destination);
-    src.start(0);
-} */
-
-
 const SFX = {};
 
 async function loadSFX(key, url) {
@@ -32,10 +11,11 @@ async function loadSFX(key, url) {
 }
 
 // Play any loaded SFX buffer
-function playSFX(key) {
+function playSFX(key, randomPitch = true) {
     if (!SFX[key]) return;
     const src = audioCtx.createBufferSource();
     src.buffer = SFX[key];
+    if (randomPitch) src.playbackRate.value = 0.95 + Math.random() * 0.1;
     src.connect(audioCtx.destination);
     src.start(0);
 }

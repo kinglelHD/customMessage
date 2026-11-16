@@ -15,6 +15,12 @@ window.addEventListener('resize', function() {
     basketball_canvas.height = window.innerHeight
 })
 
+let score = 0
+let scoreTimeout
+const score_p = document.createElement('p')
+score_p.id = 'basketball_score'
+body.appendChild(score_p)
+
 let basket_image = null
 let basket_net_image = null
 let ball_image = null
@@ -162,6 +168,17 @@ class Ball {
                 playSFX('net')
                 // Count or otherwise handle the basket here.
                 konfetti_corners()
+                score++
+                score_p.innerText = score
+                score_p.classList.add('active')
+                score_p.getAnimations().forEach(anim => {
+                    anim.cancel()
+                    anim.play()
+                })
+                window.clearTimeout(scoreTimeout)
+                scoreTimeout = setTimeout(() => {
+                    score_p.classList.remove('active')
+                }, 2000);
             }
         }
         this.resolveNetCollisions(previousCenterX, previousCenterY)

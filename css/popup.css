@@ -1,0 +1,22 @@
+.display {
+    display: none;
+    position: fixed !important;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+}
+.display::after {
+    content: '\2715';
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-100%, -40%);
+    font-size: 2rem;
+    border-radius: 50%;
+    height: fit-content;
+    outline: .25rem solid currentColor;
+}
+.display.active {
+    display: block;
+}

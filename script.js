@@ -40,6 +40,7 @@ if (urlParams.size > 0) {
     
     const message = urlParams.get('message');
     const name = urlParams.get('name');
+    const popup = urlParams.get('popup');
     const background = urlParams.get('background');
     const special = urlParams.get('special');
     
@@ -54,6 +55,11 @@ if (urlParams.size > 0) {
     name_p.innerText = name
 
     ;(async () => {
+        if (popup) {
+            await load_css('popup')
+            await load_js('popup')
+        }
+
         if (background) {
             await load_css(background)
             await load_js(background)
