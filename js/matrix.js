@@ -87,7 +87,7 @@ const FPS = 20
 const NEXT_FRAME = 1000/FPS
 let timer = 0
 
-function animate(timeStamp) {
+function matrix_animate(timeStamp) {
     const dt = timeStamp - lastTime
     lastTime = timeStamp
 
@@ -106,9 +106,9 @@ function animate(timeStamp) {
         timer += dt
     }
 
-    requestAnimationFrame(animate)
+    requestAnimationFrame(matrix_animate)
 }
-animate(0)
+matrix_animate(0)
 
 window.addEventListener('resize', function() { 
     matrix_canvas.width = window.innerWidth
