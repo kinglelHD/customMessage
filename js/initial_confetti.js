@@ -7,8 +7,9 @@ window.addEventListener('load', () => {
     load_js('konfetti').catch(error => {
         console.error('failed to load Konfetti', error)
     }).then(() => {
-        for (let x = 0; x < window.innerWidth; x++) {
-            spawn_konfetti(1, x, Math.random()*window.innerHeight)
+        const maxKonfetti = Math.min(window.innerWidth*.5, 500);
+        for (let i = 0; i < maxKonfetti; i++) {
+            spawn_konfetti(1, Math.random() * window.innerWidth, Math.random() * window.innerHeight)
         }
     })
 })

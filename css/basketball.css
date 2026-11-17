@@ -18,6 +18,10 @@ body {
     bottom: 20%;
 }
 
+.display[data-popup="true"] {
+    border: .125rem solid red;
+}
+
 #basketball_score {
     display: none;
     position: fixed;
