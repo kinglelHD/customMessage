@@ -2,11 +2,25 @@
     display: none;
     position: fixed !important;
     left: 50%;
-    top: 50%;
+    top: 100%;
     transform: translate(-50%, -50%);
     z-index: 9999;
+    opacity: 0;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 24px;
+    height: fit-content;
+    box-shadow: .25em .25em black;
 }
-.display::after {
+body:has(.display.active)::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    backdrop-filter: blur(2px);
+    background-color: rgba(0, 0, 0, .5);
+    pointer-events: none;
+}
+/* .display::after {
     content: '\2715';
     position: absolute;
     top: 0;
@@ -16,7 +30,11 @@
     border-radius: 50%;
     height: fit-content;
     outline: .25rem solid currentColor;
-}
+    } */
 .display.active {
+    opacity: 1;
+    top: 50%;
+    transition: opacity 500ms ease, top 1.5s ease, display 500ms ease;
+    transition-behavior: allow-discrete;
     display: block;
 }

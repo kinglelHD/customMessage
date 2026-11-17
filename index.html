@@ -140,6 +140,9 @@
         <h1>Generiere deine eigene Nachricht</h1>
         <p>Nachdem du auf "generieren" gedrückt hast, wird dir die fertige Nachricht angezeigt. Du kannst dann den Link aus der Adresszeile kopieren um sie zu teilen. (Aktuell funktionieren noch nicht alle Einstellungen wip)</p>
         <form id="generator_form" action="">
+            <label for="title">Seitentitel: </label>
+            <input placeholder="Benutzerdefenierte Nachricht" name="title" id="title" type="text">
+
             <label for="message">Nachricht: </label>
             <input placeholder="༼ つ ◕_◕ ༽つ" name="message" id="message" type="text">
 
@@ -168,6 +171,7 @@
                 <option value="gift">Geschenke</option>
                 <option value="cookie">Kekse</option>
                 <option value="heart">Herzen</option>
+                <option value="initial_confetti">Einmaliges Konfetti</option>
             </select>
 
             <button type="submit">generieren</button>
